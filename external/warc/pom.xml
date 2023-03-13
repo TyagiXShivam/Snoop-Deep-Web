@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.digitalpebble.stormcrawler</groupId>
+		<artifactId>storm-crawler-external</artifactId>
+		<version>2.8-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>storm-crawler-warc</artifactId>
+	<packaging>jar</packaging>
+
+	<name>storm-crawler-warc</name>
+	<url>https://github.com/DigitalPebble/storm-crawler/tree/master/external/warc</url>
+	<description>WARC resources for StormCrawler</description>
+
+	<properties>
+		<commons-codec.version>1.10</commons-codec.version>
+		<jwarc.version>0.21.0</jwarc.version>
+		<mockito-all.version>1.10.8</mockito-all.version>
+		<wiremock.version>2.27.2</wiremock.version>
+	</properties>
+
+	<dependencies>
+		<!-- Need to set this one explicitly otherwise does not get the right 
+			codec dependencies ?!?!? -->
+		<dependency>
+			<groupId>com.digitalpebble.stormcrawler</groupId>
+			<artifactId>storm-crawler-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.storm</groupId>
+			<artifactId>storm-hdfs</artifactId>
+			<version>${storm-client.version}</version>
+			<exclusions>
+				<exclusion>
+				    <!-- not available with Java 9 and higher -->
+					<groupId>jdk.tools</groupId>
+					<artifactId>jdk.tools</artifactId>
+				</exclusion>
+				<exclusion>
+				    <!-- subdependency JMS can't be found -->
+					<groupId>org.apache.hive.hcatalog</groupId>
+					<artifactId>hive-webhcat-java-client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.hbase</groupId>
+					<artifactId>hbase-server</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.hive.hcatalog</groupId>
+					<artifactId>hive-hcatalog-streaming</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.netpreserve</groupId>
+			<artifactId>jwarc</artifactId>
+			<version>${jwarc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.digitalpebble.stormcrawler</groupId>
+			<artifactId>storm-crawler-core</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
